@@ -5,7 +5,9 @@ const storage = multer.diskStorage({
     cb(null, 'public/uploads/');
   },
   filename: function (req, file, cb) {
-    cb(null, new Date().toISOString() + '-' + file.originalname);
+    const now = new Date().toISOString();
+    const date = now.replace(/:/g, '_');
+    cb (null, date + file.originalname);
   },
 });
 
@@ -27,7 +29,7 @@ const uploadMiddleware = multer({
   storage: storage,
   limits: {
     fileSize: 3000000,
-  },
+},
   fileFilter: fileFilter,
 });
 
