@@ -39,12 +39,12 @@ module.exports = {
             const { name, email, password, confirmPassword } = req.body;
 
             if (password !== confirmPassword) {
-                res.status(403).json({ message: "Passwor dan KOmfirmasi Password Tidak Sama" })
+                res.status(403).json({ message: "Password dan Komfirmasi Password Tidak Sama" })
             }
 
             const checkEmail = await User.findOne({ where: { email: email } });
             if (checkEmail) {
-                return res.status(403).json({ message: "Email Registered" })
+                return res.status(403).json({ message: "Email Sudah Terdaftar" })
             }
             const user = await User.create({ name, email, password:bcrypt.hashSync(password, 10), role: 'admin' })
 
